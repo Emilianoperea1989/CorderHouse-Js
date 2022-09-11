@@ -5,13 +5,13 @@
 }
 
 .my-container {
-   
-    height: 100vh;
     display: grid; 
     grid-auto-columns: 1fr; 
     grid-template-columns: 0.3fr 1.7fr; 
     grid-template-rows: 0.3fr 1.7fr 0.3fr; 
-    gap: 0px 0px; 
+    gap: 2px 2px;
+    height: 100vh;
+   
     grid-template-areas: 
       "header header"
       "filter main"
@@ -24,17 +24,20 @@
 
 header {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
     justify-content: center;
     background: rgb(31,18,150);
-    background: linear-gradient(90deg, rgba(31,18,150,1) 0%, rgba(15,172,217,1) 77%, rgba(252,0,255,1) 100%);
+    background: linear-gradient(90deg, #1f1296 0%, rgba(15,172,217,1) 77%, rgba(252,0,255,1) 100%);
     height: 100%;
 
 }
-
+.button-regist{
+   background-color:#1f1296 ;
+   color: #f17354;
+}
 .Logo {
     padding-right: 15px;
-
+  color: #f17354;
 }
 
 main {
@@ -42,10 +45,11 @@ main {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    background-color: #eeeada;
 }
 
 .contenedor-productos {
-
+    background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -102,12 +106,13 @@ footer{
     text-align: center;
     background: rgb(31,18,150);
     background: linear-gradient(90deg, rgba(31,18,150,1) 0%, rgba(15,172,217,1) 77%, rgba(252,0,255,1) 100%);
-    height: 100%;
+   height: 100%;
 }
 
 .filter{
     background: rgb(161,0,130);
     background: linear-gradient(0deg, rgba(161,0,130,1) 0%, rgb(241, 115, 84) 100%);
+    
 }
 .control {
     font-family: arial;
