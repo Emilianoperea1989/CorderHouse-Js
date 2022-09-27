@@ -1,7 +1,7 @@
 // Simulador de compra con tarjeta de credito con diferentes intereses. 
 // Supongamos que que el que maneja el posnet es un crack e ingresa siempre un valor que aparece en las opciones.
 // Y que solo le pagan con el mismo saldo, 
-alert('hola');
+
 let saldoTarjeta = 20000;
 let precioProducto = parseInt(prompt('Introduzca el precio del producto'));
 let cuotas;
