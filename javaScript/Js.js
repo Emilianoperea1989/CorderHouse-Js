@@ -76,7 +76,7 @@ function registroNuevoCliente(username, email, pass) {
 
 };
 
-function obtenerDatos() {
+function obtenerDatos(storage) {
     clientesRegistrados = (localStorage.getItem('usuarios')) ? JSON.parse(localStorage.getItem('usuarios')) : [];
 };
 
