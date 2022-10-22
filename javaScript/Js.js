@@ -44,6 +44,7 @@ const baseDeDatosDeProductos = [
 
 
 let clientesRegistrados = [],
+    clienteLogeado = [],
     botonLogin = document.getElementById('btnLogin'),
     emailLogin = document.getElementById('emailLogin'),
     passwordLogin = document.getElementById('passwordLogin'),
@@ -95,8 +96,8 @@ function inicioSesion(cliente, password) {
         localStorage.setItem('usuarios', JSON.stringify(clientesRegistrados)); 
     
     }else{
-        clientesRegistrados.push(usuarioRegistrado);
-        sessionStorage.setItem('usuarios', JSON.stringify(clientesRegistrados)); 
+        clienteLogeado.push(usuarioRegistrado);
+        sessionStorage.setItem('usuario', JSON.stringify(clienteLogeado)); 
      
     }
        return usuarioRegistrado;
@@ -131,7 +132,8 @@ botonLogin.addEventListener('click', (e) => {
 })
 
 btnLogout.addEventListener('click', () => {
-
+    sessionStorage.clear();
+    clienteLogeado = [];
     mostrarContenido(toggles, 'd-none');
 });
 
