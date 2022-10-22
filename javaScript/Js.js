@@ -1,162 +1,138 @@
-// Simulador de compra con tarjeta de credito con diferentes intereses. 
-// Supongamos que que el que maneja el posnet es un crack e ingresa siempre un valor que aparece en las opciones.
-// Y que solo le pagan con el mismo saldo, 
+class Cliente {
+    constructor(username, email, pass) {
+        this.username = username,
+            this.email = email,
+            this.pass = pass
+    }
+};
 
-let saldoTarjeta = 20000;
-let precioProducto = parseInt(prompt('Introduzca el precio del producto'));
-let cuotas;
-let cuota;
-let confirma;
-
-let tarjeta = parseInt(prompt('Ingrese con que tarjeta va a abonar , \n 1-Mastarcard hasta 12 cuotas sin interes \n 2-Visa hasta 6 cuotas sin interes \n 3-American Express todas las cuotas tienen interes \n 4-Salir '));
-
-
-// Elegimos el tipo de tarjeta que va a utilizar para pagar
-// Mientras la opcion de tarjeta sea diferente a 4 , va a entrar al bucle
-while (tarjeta != 4) {
-
-// Dependiendo el tipo de tarjeta que elija, va a entrar a determinado caso
-    switch (tarjeta) {
-
-
-        case 1: if (precioProducto <= saldoTarjeta) {
-            cuotas = parseInt(prompt('Ingrese la cantaidad de cuotas, 3 , 6  o 12'));
-            while(!(cuotas === 3 || cuotas === 6 || cuotas === 12)){
-                alert('El cantidad de cuotas no es correcto')
-                cuotas = parseInt(prompt('Ingrese la cantaidad de cuotas, 3 , 6  o 12'));
-            }
-            interesesMastercard(cuotas);
-
-
-            confirma = parseInt(prompt('Ingrese \n 1-Confirmar \n 2-presione cualquier tecla para salir'));
-
-
-            if (confirma === 1) {
-                alert('Gracias por tu compra');
-
-            } else alert('Nos vemos pronto');
-
-
-        } else {
-            alert('Saldo insuficiente');
-        }
-
-            break
-
-        case 2: if (precioProducto <= saldoTarjeta) {
-            cuotas = parseInt(prompt('Ingrese la cantaidad de cuotas, 3 , 6  o 12'));
-            while(!(cuotas === 3 || cuotas === 6 || cuotas === 12)){
-                alert('El cantidad de cuotas no es correcto')
-                cuotas = parseInt(prompt('Ingrese la cantaidad de cuotas, 3 , 6  o 12'));
-            }
-            interesesVisa(cuotas);
-
-            confirma = parseInt(prompt('Ingrese \n 1-Confirmar \n 2-presione cualquier tecla para salir'));
-
-
-            if (confirma === 1) {
-                alert('Gracias por tu compra');
-
-            } else alert('Nos vemos pronto');
-
-        } else {
-            alert('Saldo insuficiente');
-        }
-            break
-
-        case 3: if (precioProducto <= saldoTarjeta) {
-            cuotas = parseInt(prompt('Ingrese la cantaidad de cuotas, 3 , 6  o 12'));
-            while(!(cuotas === 3 || cuotas === 6 || cuotas === 12)){
-                alert('El cantidad de cuotas no es correcto')
-                cuotas = parseInt(prompt('Ingrese la cantaidad de cuotas, 3 , 6  o 12'));
-            }
-            interesesAmericanExpress(cuotas);
-
-            confirma = parseInt(prompt('Ingrese \n 1-Confirmar \n 2-presione cualquier tecla para salir'));
-
-
-            if (confirma === 1) {
-                alert('Gracias por tu compra');
-
-            } else alert('Nos vemos pronto');
-
-        } else {
-            alert('Saldo insuficiente');
-        }
-            break
-
-        default:
-
-            alert('Ingrese una tarjeta valida');
-            break
+class Producto {
+    constructor(marca, estilo, tipo, color, talle, precio, stock, img) {
+        this.marca = marca,
+            this.estilo = estilo,
+            this.tipo = tipo,
+            this.color = color,
+            this.talle = talle,
+            this.precio = parseFloat(precio).toFixed(3),
+            this.stock = stock,
+            this.img = img
 
     }
 
-   
-  tarjeta = parseInt(prompt('Ingrese con que tarjeta va a abonar , \n 1-Mastarcard hasta 12 cuotas sin interes \n 2-Visa hasta 6 cuotas sin interes \n 3-American Express todas las cuotas tienen interes \n 4-Salir '));
-
 }
 
-// Funciones que indican el valor de los intereses que le corresponde a cada tarjeta de credito
+const baseDeDatosDeProductos = [
+    new Producto('Nike', 'running', 'Zapatilla', 'Negro', [36, 37, 38, 39, 40, 41], 29.499, true,'../img/zapatillas/nike/zapatillas-nike-running-negras.jpg'),
 
-function interesesMastercard(cuotas) {
-    if (cuotas === 3) {
+    new Producto('Nike', 'running', 'Zapatilla', 'Negro', [36, 37, 38, 39, 40], 22.999, true, '../img/zapatillas/nike/zapatillas-nike-urbana-negra.jpg'),
 
-        cuota = precioProducto / cuotas;
-        alert('El precio del producto total financiado es de ' + precioProducto + ' son ' + cuotas + ' cuotas de ' + cuota);
-    } else if (cuotas === 6) {
+    new Producto('Nike', 'urbano', 'Zapatilla', 'blanco', [36, 37, 39, 41], 31.999, true, '../img/zapatillas/nike/zapatillas-nike-urbana-blanca.jpg'),
 
-        cuota = precioProducto / cuotas;
-        alert('El precio del producto total financiado es de ' + precioProducto + ' son ' + cuotas + ' cuotas de ' + cuota);
-    } else if (cuotas === 12) {
+    new Producto('Nike', 'running', 'Zapatilla', 'blanco', [36, 37, 38, 40, 41], 23.699, true,'../img/zapatillas/nike/zapatillas-nike-urbana-blanca-bota.jpg'),
 
-        cuota = precioProducto / cuotas;
-        alert('El precio del producto total financiado es de ' + precioProducto + ' son ' + cuotas + ' cuotas de ' + cuota);
+    new Producto('Nike', 'running', 'Zapatilla', 'blanco', [36, 37, 38, 40, 41], 19.299, true,'../img/zapatillas/nike/zapatillas-nike-running-blanca.jpg'),
+
+    new Producto('Nike', 'running', 'Zapatilla', 'blanco', [36, 37, 39, 40, 41], 33.899, true,'../img/zapatillas/adidas/zapatillas-adidas-running-blancas.jpg'),
+
+    new Producto('Nike', 'running', 'Zapatilla', 'blanco', [36, 37, 39, 40, 41], 24.699, true,'../img/zapatillas/adidas/zapatillas-adidas-running-negra.jpg'),
+
+    new Producto('Nike', 'running', 'Zapatilla', 'Negro', [37, 38, 39, 40, 41], 18.999, true,'../img/zapatillas/adidas/zapatillas-adidas-urbana-negra.jpg'),
+
+    new Producto('Nike', 'running', 'Zapatilla', 'blanco', [37, 38, 40, 41], 39.299, true,'../img/zapatillas/adidas/zapatillas-adidas-urbana-blanca.jpg'),
+    
+]
+console.log(baseDeDatosDeProductos);
+
+
+let clientesRegistrados = [],
+    botonLogin = document.getElementById('btnLogin'),
+    emailLogin = document.getElementById('emailLogin'),
+    passwordLogin = document.getElementById('passwordLogin'),
+    botonRegistrar = document.getElementById('btnRegistro'),
+    modalLogin = document.getElementById('modalLogin'),
+    modalL = new bootstrap.Modal(modalLogin),
+    modalRegistro = document.getElementById('modalRegistro'),
+    modal = new bootstrap.Modal(modalRegistro),
+    username = document.getElementById('userName'),
+    email = document.getElementById('email'),
+    password = document.getElementById('password'),
+    toggles = document.querySelectorAll('.toggles'),
+    saludo = document.getElementById('nombreUsuario'),
+    botonLogout = document.getElementById('btnLogout '),
+    tarjetaProducto = document.getElementById('cardProduct'),
+    check = document.getElementById('check');
+ 
+
+function registroNuevoCliente(username, email, pass) {
+    let nuevoCliente = new Cliente(username, email, pass);
+    let regexEmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+ 
+    if((username.length > 4) && (regexEmail.test(email)) && (pass.length > 8)){
+        clientesRegistrados.push(nuevoCliente);
+        localStorage.setItem('usuarios', JSON.stringify(clientesRegistrados)); 
+    }else{
+        alert('datos incorrectos \nEl nombre requiere minimo 6 caracteres \nEmail = ejemplo@gmail.com \nLa contraseña requiere minimo 8 caracteres'  );
+    }
+
+};
+
+function obtenerDatos() {
+    clientesRegistrados = (localStorage.getItem('usuarios')) ? JSON.parse(localStorage.getItem('usuarios')) : [];
+};
+
+function inicioSesion(cliente, password) {
+    let usuarioRegistrado = clientesRegistrados.find((clienteRegistrado) => clienteRegistrado.email == cliente && clienteRegistrado.pass == password);
+    if (!usuarioRegistrado) {
+        alert('Usted a ingresado un Usuario y/o Contraseña no valida');
     } else {
-        alert('Usted a elegido una opcion incorrecta');
+        saludo.innerText = `Bienvenido ${usuarioRegistrado.username}`;
+        mostrarContenido(toggles, 'd-none');
+        return usuarioRegistrado;
     }
-
+}
+function mostrarContenido(array, clase) {
+    array.forEach(element => {
+        element.classList.toggle(clase);
+    });
 }
 
+botonRegistrar.addEventListener('click', (e) => {
+    e.preventDefault();
+    registroNuevoCliente(username.value, email.value, password.value);
+    username.value = '';
+    email.value = '';
+    password.value = '';
+    modal.hide();
+})
 
+window.onload = () => obtenerDatos();
 
-function interesesVisa(cuotas) {
-    if (cuotas === 3) {
-        cuota = precioProducto / cuotas;
-        alert('El precio del producto total financiado es de ' + precioProducto + ' son ' + cuotas + ' cuotas de ' + cuota);
-    } else if (cuotas === 6) {
-        cuota = precioProducto / cuotas;
-        alert('El precio del producto total financiado es de ' + precioProducto + ' son ' + cuotas + ' cuotas de ' + cuota);
-    } else if (cuotas === 12) {
-        precioProducto = precioProducto * 1.45;
-        cuota = precioProducto / cuotas;
-        alert('El precio del producto total financiado es de ' + precioProducto + ' son ' + cuotas + ' cuotas de ' + cuota);
-    } else {
-        alert('Usted a elegido una opcion incorrecta');
-    }
+botonLogin.addEventListener('click', (e) => {
+    e.preventDefault();
+    inicioSesion(emailLogin.value, passwordLogin.value);
+    emailLogin.value = '';
+    passwordLogin.value = '';
+    modalL.hide();
 
-}
+})
 
+btnLogout.addEventListener('click', () => {
 
+    mostrarContenido(toggles, 'd-none');
+});
 
-function interesesAmericanExpress(cuotas) {
-    if (cuotas === 3) {
-        precioProducto = precioProducto * 1.20;
-        cuota = precioProducto / cuotas;
-        alert('El precio del producto total financiado es de ' + precioProducto + ' son ' + cuotas + ' cuotas de ' + cuota);
-    } else if (cuotas === 6) {
-        precioProducto = precioProducto * 1.34;
-        cuota = precioProducto / cuotas;
-        alert('El precio del producto total financiado es de ' + precioProducto + ' son ' + cuotas + ' cuotas de ' + cuota);
-    } else if (cuotas === 12) {
-        precioProducto = precioProducto * 1.47;
-        cuota = precioProducto / cuotas;
-        alert('El precio del producto total financiado es de ' + precioProducto + ' son ' + cuotas + ' cuotas de ' + cuota);
-    } else {
-        alert('Usted a elegido una opcion incorrecta');
-    }
-
-}
+baseDeDatosDeProductos.map((producto) => {
+    tarjetaProducto.innerHTML += `
+    
+    <div class="contenedor-productos" id="cardProduct">
+          <img src="${producto.img}" class="d-block  mt-5 pb-5 productos" alt="${producto.marca}">    
+        <div class="debajo-producto">
+          <p class="precio">$${producto.precio}</p>    
+          <p class="descripcion">Zapatillas Nike Tenis Pro</p>     
+          <button class="boton-compra">Comprar</button>    
+        </div>
+    </div>`
+})
 
 
 

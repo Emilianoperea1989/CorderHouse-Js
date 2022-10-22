@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
@@ -14,7 +14,7 @@
   <!-- Link Style -->
   <link rel="stylesheet" href="style/style.css">
 
-  
+
 </head>
 
 <body>
@@ -29,302 +29,75 @@
               <input class="form-control me-2" type="search" placeholder="Busca aquí tu producto" aria-label="Search">
               <button class="btn btn-outline-success button-regist " type="submit">Buscar</button>
             </form>
-            <input class="btn btn-outline-success button-regist" type="button" value="Regístrate" >
+            <p id="nombreUsuario" class="d-none toggles"></p>
+            <div>
+              <input class="btn btn-outline-success button-regist toggles" type="button" value="Iniciar sesion"
+                data-bs-toggle="modal" data-bs-target="#modalLogin">
+              <input class="btn btn-outline-success button-regist toggles" type="button" value="Regístrate"
+                data-bs-toggle="modal" data-bs-target="#modalRegistro">
+
+              <input id="btnLogout" class="btn btn-outline-success button-regist d-none toggles" type="button"
+                value="Logout">
+            </div>
+
           </div>
         </nav>
-        
+
       </header>
+      <div id="modalRegistro" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Registrate</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body row p-4 m-3" id="formulario">
+              <input class="p-1" type="text" id="userName" placeholder="Ingresa nombre de usuario" required>
+              <input class="p-1 mt-3" type="email" name="email" id="email" placeholder="Ingresa tu email" required>
+              <input class="p-1 mt-3" type="password" name="password" id="password" placeholder="Ingresa tu contraseña"
+                required>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" id="btnRegistro" class="btn btn-primary">Aceptar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="modalLogin" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Inicia Sesión</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body row p-4 m-3">
+              <input class="p-1" type="email" name="" id="emailLogin" placeholder="Ingresa tu email">
+              <input class="p-1 mt-3" type="password" name="" id="passwordLogin" placeholder="Ingresa tu contraseña">
+              <p class="mt-5">Recordar en este sitio <input type="checkbox" name="check" id="check" ></p>
+               
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" id="btnLogin" class="btn btn-primary">Aceptar</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="main">
+  
       <main>
-        
-        <article class="contenedor-productos">
-          <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner contenedor-carrusel">
-              <div class="carousel-item active">
-                <img src="img/zapatillas/nike/nike-tenis.jpg" class="d-block  mt-5 pb-5 productos" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="img/zapatillas/nike/nike-tenis3.jpg" class="d-block  mt-5 pb-5  productos" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="img/zapatillas/nike/nike-tenis4.jpg" class="d-block  mt-5 pb-5  productos" alt="...">
-              </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-              data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-              data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-          <div class="debajo-producto">
-            <p class="precio">$32.999</p>
-            <p class="descripcion">Zapatillas Nike Tenis Pro</p>
-            <button class="boton-compra">Comprar</button>
-          </div>
-        </article>
-
-
-
-        <article class="contenedor-productos">
-          <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner contenedor-carrusel">
-              <div class="carousel-item active">
-                <img src="img/zapatillas/nike/nike-tenis.jpg" class="d-block  mt-5 pb-5 productos" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="img/zapatillas/nike/nike-tenis3.jpg" class="d-block  mt-5 pb-5  productos" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="img/zapatillas/nike/nike-tenis4.jpg" class="d-block  mt-5 pb-5  productos" alt="...">
-              </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-              data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-              data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-          <div class="debajo-producto">
-            <p class="precio">$32.999</p>
-            <p class="descripcion">Zapatillas Nike Tenis Pro</p>
-            <button class="boton-compra">Comprar</button>
-          </div>
-        </article>
-        <article class="contenedor-productos">
-          <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner contenedor-carrusel">
-              <div class="carousel-item active">
-                <img src="img/zapatillas/nike/nike-tenis.jpg" class="d-block  mt-5 pb-5 productos" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="img/zapatillas/nike/nike-tenis3.jpg" class="d-block  mt-5 pb-5  productos" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="img/zapatillas/nike/nike-tenis4.jpg" class="d-block  mt-5 pb-5  productos" alt="...">
-              </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-              data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-              data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-          <div class="debajo-producto">
-            <p class="precio">$32.999</p>
-            <p class="descripcion">Zapatillas Nike Tenis Pro</p>
-            <button class="boton-compra">Comprar</button>
-          </div>
-        </article>
-
-        <article class="contenedor-productos">
-          <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner contenedor-carrusel">
-              <div class="carousel-item active">
-                <img src="img/zapatillas/adidas/adidas-running.jpg" class="d-block  mt-5 pb-5 productos" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="img/zapatillas/adidas/adidas-running2.jpg" class="d-block  mt-5 pb-5  productos" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="img/zapatillas/adidas/adidas-running3.jpg" class="d-block  mt-5 pb-5  productos" alt="...">
-              </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-              data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-              data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-          <div class="debajo-producto">
-            <p class="precio">$22.999</p>
-            <p class="descripcion">Zapatillas Nike Tenis Pro</p>
-            <button class="boton-compra">Comprar</button>
-          </div>
-        </article>
-
-        <article class="contenedor-productos">
-          <div id="carouselExampleControls" class="carousel " data-bs-ride="carousel">
-            <div class="carousel-inner contenedor-carrusel">
-              <div class="carousel-item active">
-                <img src="img/zapatillas/adidas/adidas-blancas.jpg" class="d-block  mt-5 pb-5 productos" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="img/zapatillas/adidas/adidas-blancas2.jpg" class="d-block  mt-5 pb-5  productos" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="img/zapatillas/adidas/adidas-blancas3.jpg" class="d-block  mt-5 pb-5  productos" alt="...">
-              </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-              data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-              data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-          <div class="debajo-producto">
-            <p class="precio">$23.999</p>
-            <p class="descripcion">Zapatillas Nike Tenis Pro</p>
-            <button class="boton-compra">Comprar</button>
-          </div>
-        </article>
-
-        <article class="contenedor-productos">
-          <div id="carouselExampleControls" class="carousel " data-bs-ride="carousel">
-            <div class="carousel-inner contenedor-carrusel">
-              <div class="carousel-item active">
-                <img src="img/zapatillas/adidas/adidas-blancas.jpg" class="d-block  mt-5 pb-5 productos" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="img/zapatillas/adidas/adidas-blancas2.jpg" class="d-block  mt-5 pb-5  productos" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="img/zapatillas/adidas/adidas-blancas3.jpg" class="d-block  mt-5 pb-5  productos" alt="...">
-              </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-              data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-              data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-          <div class="debajo-producto">
-            <p class="precio">$23.999</p>
-            <p class="descripcion">Zapatillas Nike Tenis Pro</p>
-            <button class="boton-compra">Comprar</button>
-          </div>
-        </article>
-
-        <article class="contenedor-productos">
-          <div id="carouselExampleControls" class="carousel " data-bs-ride="carousel">
-            <div class="carousel-inner contenedor-carrusel">
-              <div class="carousel-item active">
-                <img src="img/zapatillas/adidas/adidas-blancas.jpg" class="d-block  mt-5 pb-5 productos" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="img/zapatillas/adidas/adidas-blancas2.jpg" class="d-block  mt-5 pb-5  productos" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="img/zapatillas/adidas/adidas-blancas3.jpg" class="d-block  mt-5 pb-5  productos" alt="...">
-              </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-              data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-              data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-          <div class="debajo-producto">
-            <p class="precio">$23.999</p>
-            <p class="descripcion">Zapatillas Nike Tenis Pro</p>
-            <button class="boton-compra">Comprar</button>
-          </div>
-        </article>
-
-        <article class="contenedor-productos">
-          <div id="carouselExampleControls" class="carousel " data-bs-ride="carousel">
-            <div class="carousel-inner contenedor-carrusel">
-              <div class="carousel-item active">
-                <img src="img/zapatillas/adidas/adidas-blancas.jpg" class="d-block  mt-5 pb-5 productos" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="img/zapatillas/adidas/adidas-blancas2.jpg" class="d-block  mt-5 pb-5  productos" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="img/zapatillas/adidas/adidas-blancas3.jpg" class="d-block  mt-5 pb-5  productos" alt="...">
-              </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-              data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-              data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-          <div class="debajo-producto">
-            <p class="precio">$23.999</p>
-            <p class="descripcion">Zapatillas Nike Tenis Pro</p>
-            <button class="boton-compra">Comprar</button>
-          </div>
-        </article>
-
-        <article class="contenedor-productos">
-          <div id="carouselExampleControls" class="carousel " data-bs-ride="carousel">
-            <div class="carousel-inner contenedor-carrusel">
-              <div class="carousel-item active">
-                <img src="img/zapatillas/adidas/adidas-blancas.jpg" class="d-block  mt-5 pb-5 productos" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="img/zapatillas/adidas/adidas-blancas2.jpg" class="d-block  mt-5 pb-5  productos" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="img/zapatillas/adidas/adidas-blancas3.jpg" class="d-block  mt-5 pb-5  productos" alt="...">
-              </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-              data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-              data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-          <div class="debajo-producto">
-            <p class="precio">$23.999</p>
-            <p class="descripcion">Zapatillas Nike Tenis Pro</p>
-            <button class="boton-compra">Comprar</button>
-          </div>
-        </article>
+        <div class="main d-flex flex-wrap " id="cardProduct">
+        </div>
       </main>
-    </div>
+   
 
     <div class="filter">
       <div class="control">
         <span class="title-marcas">Marcas</span>
-        
+
         <label class="control control-checkbox">
           Adidas
           <input type="checkbox" checked="checked" />
@@ -345,37 +118,37 @@
 
       <div class="control">
         <span class="title-marcas">Talle</span>
-        
+
         <label class="control control-checkbox">
           39
           <input type="checkbox" checked="checked" />
           <div class="control_indicator"></div>
         </label>
         <label class="control control-checkbox">
-         40
+          40
           <input type="checkbox" />
           <div class="control_indicator"></div>
         </label>
         <label class="control control-checkbox">
-         41
+          41
           <input type="checkbox" />
           <div class="control_indicator"></div>
         </label>
         <label class="control control-checkbox">
           42
-           <input type="checkbox" />
-           <div class="control_indicator"></div>
-         </label>
-         <label class="control control-checkbox">
+          <input type="checkbox" />
+          <div class="control_indicator"></div>
+        </label>
+        <label class="control control-checkbox">
           42.5
-           <input type="checkbox" />
-           <div class="control_indicator"></div>
-         </label>
+          <input type="checkbox" />
+          <div class="control_indicator"></div>
+        </label>
       </div>
-      
+
       <div class="control">
         <span class="title-marcas">Color</span>
-        
+
         <label class="control control-checkbox">
           Negro
           <input type="checkbox" checked="checked" />
@@ -395,14 +168,14 @@
 
       <div class="control">
         <span class="title-marcas">Envío gratis</span>
-        
+
         <label class="control control-checkbox">
           Si
           <input type="checkbox" checked="checked" />
           <div class="control_indicator"></div>
         </label>
       </div>
-    </div> 
+    </div>
     <div class="footer">
       <footer>
         <h3>Desarrollado por Emiliano Perea</h3>
@@ -415,7 +188,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
-    <!-- Link JavaScript  -->
+  <!-- Link JavaScript  -->
   <script src="./javaScript/Js.js"></script>
 </body>
 
