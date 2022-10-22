@@ -22,23 +22,23 @@ class Producto {
 }
 
 const baseDeDatosDeProductos = [
-    new Producto('Nike', 'running', 'Zapatilla', 'Negro', [36, 37, 38, 39, 40, 41], 29.499, true,'../img/zapatillas/nike/zapatillas-nike-running-negras.jpg'),
+    new Producto('Nike', 'running', 'Zapatilla', 'Negro', [36, 37, 38, 39, 40, 41], 29.499, true,'./img/zapatillas/nike/zapatillas-nike-running-negras.jpg'),
 
-    new Producto('Nike', 'running', 'Zapatilla', 'Negro', [36, 37, 38, 39, 40], 22.999, true, '../img/zapatillas/nike/zapatillas-nike-urbana-negra.jpg'),
+    new Producto('Nike', 'running', 'Zapatilla', 'Negro', [36, 37, 38, 39, 40], 22.999, true, './img/zapatillas/nike/zapatillas-nike-urbana-negra.jpg'),
 
-    new Producto('Nike', 'urbano', 'Zapatilla', 'blanco', [36, 37, 39, 41], 31.999, true, '../img/zapatillas/nike/zapatillas-nike-urbana-blanca.jpg'),
+    new Producto('Nike', 'urbano', 'Zapatilla', 'blanco', [36, 37, 39, 41], 31.999, true, './img/zapatillas/nike/zapatillas-nike-urbana-blanca.jpg'),
 
-    new Producto('Nike', 'running', 'Zapatilla', 'blanco', [36, 37, 38, 40, 41], 23.699, true,'../img/zapatillas/nike/zapatillas-nike-urbana-blanca-bota.jpg'),
+    new Producto('Nike', 'running', 'Zapatilla', 'blanco', [36, 37, 38, 40, 41], 23.699, true,'./img/zapatillas/nike/zapatillas-nike-urbana-blanca-bota.jpg'),
 
-    new Producto('Nike', 'running', 'Zapatilla', 'blanco', [36, 37, 38, 40, 41], 19.299, true,'../img/zapatillas/nike/zapatillas-nike-running-blanca.jpg'),
+    new Producto('Nike', 'running', 'Zapatilla', 'blanco', [36, 37, 38, 40, 41], 19.299, true,'./img/zapatillas/nike/zapatillas-nike-running-blanca.jpg'),
 
-    new Producto('Nike', 'running', 'Zapatilla', 'blanco', [36, 37, 39, 40, 41], 33.899, true,'../img/zapatillas/adidas/zapatillas-adidas-running-blancas.jpg'),
+    new Producto('Nike', 'running', 'Zapatilla', 'blanco', [36, 37, 39, 40, 41], 33.899, true,'./img/zapatillas/adidas/zapatillas-adidas-running-blancas.jpg'),
 
-    new Producto('Nike', 'running', 'Zapatilla', 'blanco', [36, 37, 39, 40, 41], 24.699, true,'../img/zapatillas/adidas/zapatillas-adidas-running-negra.jpg'),
+    new Producto('Nike', 'running', 'Zapatilla', 'blanco', [36, 37, 39, 40, 41], 24.699, true,'./img/zapatillas/adidas/zapatillas-adidas-running-negra.jpg'),
 
-    new Producto('Nike', 'running', 'Zapatilla', 'Negro', [37, 38, 39, 40, 41], 18.999, true,'../img/zapatillas/adidas/zapatillas-adidas-urbana-negra.jpg'),
+    new Producto('Nike', 'running', 'Zapatilla', 'Negro', [37, 38, 39, 40, 41], 18.999, true,'./img/zapatillas/adidas/zapatillas-adidas-urbana-negra.jpg'),
 
-    new Producto('Nike', 'running', 'Zapatilla', 'blanco', [37, 38, 40, 41], 39.299, true,'../img/zapatillas/adidas/zapatillas-adidas-urbana-blanca.jpg'),
+    new Producto('Nike', 'running', 'Zapatilla', 'blanco', [37, 38, 40, 41], 39.299, true,'./img/zapatillas/adidas/zapatillas-adidas-urbana-blanca.jpg'),
     
 ]
 
