@@ -41,7 +41,6 @@ const baseDeDatosDeProductos = [
     new Producto('Nike', 'running', 'Zapatilla', 'blanco', [37, 38, 40, 41], 39.299, true,'../img/zapatillas/adidas/zapatillas-adidas-urbana-blanca.jpg'),
     
 ]
-console.log(baseDeDatosDeProductos);
 
 
 let clientesRegistrados = [],
@@ -76,19 +75,34 @@ function registroNuevoCliente(username, email, pass) {
 
 };
 
+
+
 function obtenerDatos(storage) {
-    clientesRegistrados = (localStorage.getItem('usuarios')) ? JSON.parse(localStorage.getItem('usuarios')) : [];
+    clientesRegistrados = (storage.getItem('usuarios')) ? JSON.parse(storage.getItem('usuarios')) : [];
 };
 
 function inicioSesion(cliente, password) {
+
     let usuarioRegistrado = clientesRegistrados.find((clienteRegistrado) => clienteRegistrado.email == cliente && clienteRegistrado.pass == password);
     if (!usuarioRegistrado) {
         alert('Usted a ingresado un Usuario y/o Contraseña no valida');
     } else {
         saludo.innerText = `Bienvenido ${usuarioRegistrado.username}`;
         mostrarContenido(toggles, 'd-none');
-        return usuarioRegistrado;
+           
+    if(check.checked){
+        clientesRegistrados.push(usuarioRegistrado);
+        localStorage.setItem('usuarios', JSON.stringify(clientesRegistrados)); 
+    
+    }else{
+        clientesRegistrados.push(usuarioRegistrado);
+        sessionStorage.setItem('usuarios', JSON.stringify(clientesRegistrados)); 
+     
     }
+       return usuarioRegistrado;
+}
+    
+ 
 }
 function mostrarContenido(array, clase) {
     array.forEach(element => {
@@ -105,7 +119,7 @@ botonRegistrar.addEventListener('click', (e) => {
     modal.hide();
 })
 
-window.onload = () => obtenerDatos();
+window.onload = () => obtenerDatos(localStorage);
 
 botonLogin.addEventListener('click', (e) => {
     e.preventDefault();
@@ -133,7 +147,6 @@ baseDeDatosDeProductos.map((producto) => {
         </div>
     </div>`
 })
-
 
 
 
