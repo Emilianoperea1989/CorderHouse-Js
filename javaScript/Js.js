@@ -1,3 +1,6 @@
+
+//  Creador clase Cliente y Producto
+
 class Cliente {
     constructor(username, email, pass) {
         this.username = username,
@@ -21,6 +24,8 @@ class Producto {
 
 }
 
+// Base de dato de productos
+
 const baseDeDatosDeProductos = [
     new Producto('Nike', 'running', 'Zapatilla', 'Negro', [36, 37, 38, 39, 40, 41], 29.499, true,'./img/zapatillas/nike/zapatillas-nike-running-negras.jpg'),
 
@@ -42,6 +47,7 @@ const baseDeDatosDeProductos = [
     
 ]
 
+// Variables y Objetos del DOM
 
 let clientesRegistrados = [],
     clienteLogeado = [],
@@ -63,6 +69,8 @@ let clientesRegistrados = [],
     check = document.getElementById('check');
  
 
+// funcion para registrar nuevo cliente
+
 function registroNuevoCliente(username, email, pass) {
     let nuevoCliente = new Cliente(username, email, pass);
     let regexEmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -76,11 +84,13 @@ function registroNuevoCliente(username, email, pass) {
 
 };
 
-
+// Funcion para obtener los datos de los clientes 
 
 function obtenerDatos(storage) {
     clientesRegistrados = (storage.getItem('usuarios')) ? JSON.parse(storage.getItem('usuarios')) : [];
 };
+
+// Funcion para verificar si el cliente esta registrado para poder iniciar sesion
 
 function inicioSesion(cliente, password) {
 
@@ -105,11 +115,15 @@ function inicioSesion(cliente, password) {
     
  
 }
+// funcion para mostrar contendio si estas registrado o no
+
 function mostrarContenido(array, clase) {
     array.forEach(element => {
         element.classList.toggle(clase);
     });
 }
+
+// Acción para boton registrar
 
 botonRegistrar.addEventListener('click', (e) => {
     e.preventDefault();
@@ -122,6 +136,8 @@ botonRegistrar.addEventListener('click', (e) => {
 
 window.onload = () => obtenerDatos(localStorage);
 
+// Acción para boton login
+
 botonLogin.addEventListener('click', (e) => {
     e.preventDefault();
     inicioSesion(emailLogin.value, passwordLogin.value);
@@ -131,11 +147,15 @@ botonLogin.addEventListener('click', (e) => {
 
 })
 
+//  Acción para boton logout
+
 btnLogout.addEventListener('click', () => {
     sessionStorage.clear();
     clienteLogeado = [];
     mostrarContenido(toggles, 'd-none');
 });
+
+// Creador de tarjetas de producto dinamico
 
 baseDeDatosDeProductos.map((producto) => {
     tarjetaProducto.innerHTML += `
