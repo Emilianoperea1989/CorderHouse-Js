@@ -26,7 +26,7 @@
           <div class="container-fluid ">
             <h1 class="Logo">Free-Market</h1>
             <form class="d-flex ">
-              <input class="form-control me-2" type="search" placeholder="Busca aquí tu producto" aria-label="Search">
+              <input id="searchProduct" class="form-control me-2" type="search" placeholder="Busca aquí tu producto" aria-label="Search">
               <button class="btn btn-outline-success button-regist " type="submit">Buscar</button>
             </form>
             <p id="nombreUsuario" class="d-none toggles"></p>
@@ -94,29 +94,29 @@
       </main>
    
 
-    <div class="filter">
-      <div class="control">
+    <div id="idFilter" class="filter">
+      <div id="filterMarca" class="control">
         <span class="title-marcas">Marcas</span>
 
         <label class="control control-checkbox">
           Adidas
-          <input type="checkbox" checked="checked" />
+          <input id="adidas" type="checkbox" name="marca" value="Adidas"/>
           <div class="control_indicator"></div>
         </label>
         <label class="control control-checkbox">
           Nike
-          <input type="checkbox" />
+          <input id="nike" type="checkbox" name="marca" value="Nike"/>
           <div class="control_indicator"></div>
         </label>
         <label class="control control-checkbox">
           Reebook
-          <input type="checkbox" />
+          <input id="reebook" type="checkbox" name="marca" value="Reebook"/>
           <div class="control_indicator"></div>
         </label>
       </div>
 
 
-      <div class="control">
+      <div id="filterTalle" class="control">
         <span class="title-marcas">Talle</span>
 
         <label class="control control-checkbox">
@@ -146,7 +146,7 @@
         </label>
       </div>
 
-      <div class="control">
+      <div id="filterColor" class="control">
         <span class="title-marcas">Color</span>
 
         <label class="control control-checkbox">
@@ -162,16 +162,6 @@
         <label class="control control-checkbox">
           Gris
           <input type="checkbox" />
-          <div class="control_indicator"></div>
-        </label>
-      </div>
-
-      <div class="control">
-        <span class="title-marcas">Envío gratis</span>
-
-        <label class="control control-checkbox">
-          Si
-          <input type="checkbox" checked="checked" />
           <div class="control_indicator"></div>
         </label>
       </div>

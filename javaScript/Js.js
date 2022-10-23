@@ -3,7 +3,7 @@
 
 class Cliente {
     constructor(username, email, pass) {
-        this.username = username,
+            this.username = username,
             this.email = email,
             this.pass = pass
     }
@@ -11,7 +11,7 @@ class Cliente {
 
 class Producto {
     constructor(marca, estilo, tipo, color, talle, precio, stock, img) {
-        this.marca = marca,
+            this.marca = marca,
             this.estilo = estilo,
             this.tipo = tipo,
             this.color = color,
@@ -37,13 +37,13 @@ const baseDeDatosDeProductos = [
 
     new Producto('Nike', 'running', 'Zapatilla', 'blanco', [36, 37, 38, 40, 41], 19.299, true,'./img/zapatillas/nike/zapatillas-nike-running-blanca.jpg'),
 
-    new Producto('Nike', 'running', 'Zapatilla', 'blanco', [36, 37, 39, 40, 41], 33.899, true,'./img/zapatillas/adidas/zapatillas-adidas-running-blancas.jpg'),
+    new Producto('Adidas', 'running', 'Zapatilla', 'blanco', [36, 37, 39, 40, 41], 33.899, true,'./img/zapatillas/adidas/zapatillas-adidas-running-blancas.jpg'),
 
-    new Producto('Nike', 'running', 'Zapatilla', 'blanco', [36, 37, 39, 40, 41], 24.699, true,'./img/zapatillas/adidas/zapatillas-adidas-running-negra.jpg'),
+    new Producto('Adidas', 'running', 'Zapatilla', 'blanco', [36, 37, 39, 40, 41], 24.699, true,'./img/zapatillas/adidas/zapatillas-adidas-running-negra.jpg'),
 
-    new Producto('Nike', 'running', 'Zapatilla', 'Negro', [37, 38, 39, 40, 41], 18.999, true,'./img/zapatillas/adidas/zapatillas-adidas-urbana-negra.jpg'),
+    new Producto('Adidas', 'running', 'Zapatilla', 'Negro', [37, 38, 39, 40, 41], 18.999, true,'./img/zapatillas/adidas/zapatillas-adidas-urbana-negra.jpg'),
 
-    new Producto('Nike', 'running', 'Zapatilla', 'blanco', [37, 38, 40, 41], 39.299, true,'./img/zapatillas/adidas/zapatillas-adidas-urbana-blanca.jpg'),
+    new Producto('Adidas', 'running', 'Zapatilla', 'blanco', [37, 38, 40, 41], 39.299, true,'./img/zapatillas/adidas/zapatillas-adidas-urbana-blanca.jpg'),
     
 ]
 
@@ -66,8 +66,8 @@ let clientesRegistrados = [],
     saludo = document.getElementById('nombreUsuario'),
     botonLogout = document.getElementById('btnLogout '),
     tarjetaProducto = document.getElementById('cardProduct'),
-    check = document.getElementById('check');
- 
+    check = document.getElementById('check'),
+    marcaFiltro = document.querySelectorAll('input[type=checkbox][name=marca]');
 
 // funcion para registrar nuevo cliente
 
@@ -134,7 +134,20 @@ botonRegistrar.addEventListener('click', (e) => {
     modal.hide();
 })
 
-window.onload = () => obtenerDatos(localStorage);
+window.onload = () => {
+    obtenerDatos(localStorage);
+    baseDeDatosDeProductos.map((producto) => {
+        tarjetaProducto.innerHTML += `
+        <div class="contenedor-productos" id="cardProduct">
+              <img src="${producto.img}" class="d-block  mt-5 pb-5 productos" alt="${producto.marca}">    
+            <div class="debajo-producto">
+              <p class="precio">$${producto.precio}</p>    
+              <p class="descripcion">Zapatillas Nike Tenis Pro</p>     
+              <button class="boton-compra">Comprar</button>    
+            </div>
+        </div>`
+    })
+};
 
 // Acción para boton login
 
@@ -155,20 +168,43 @@ btnLogout.addEventListener('click', () => {
     mostrarContenido(toggles, 'd-none');
 });
 
-// Creador de tarjetas de producto dinamico
 
-baseDeDatosDeProductos.map((producto) => {
-    tarjetaProducto.innerHTML += `
-    
-    <div class="contenedor-productos" id="cardProduct">
-          <img src="${producto.img}" class="d-block  mt-5 pb-5 productos" alt="${producto.marca}">    
-        <div class="debajo-producto">
-          <p class="precio">$${producto.precio}</p>    
-          <p class="descripcion">Zapatillas Nike Tenis Pro</p>     
-          <button class="boton-compra">Comprar</button>    
-        </div>
-    </div>`
+function filtros(filtro) {
+    return baseDeDatosDeProductos.filter((baseDeDatosDeProductos) => baseDeDatosDeProductos.marca == `${filtro[0]}` || baseDeDatosDeProductos.marca == `${filtro[1]}`);
+
+}
+
+let filtroMarcas = [];
+
+marcaFiltro.forEach(function(checkbox){
+    checkbox.addEventListener('change', function(){
+        tarjetaProducto.innerHTML = '';
+        filtroMarcas = Array.from(marcaFiltro).filter(i => i.checked).map(i => i.value)
+        
+        const creadorTarjetas = filtros(filtroMarcas);
+        creadorTarjetas.map((producto) => {
+            tarjetaProducto.innerHTML += `
+            <div class="contenedor-productos" id="cardProduct">
+                  <img src="${producto.img}" class="d-block  mt-5 pb-5 productos" alt="${producto.marca}">    
+                <div class="debajo-producto">
+                  <p class="precio">$${producto.precio}</p>    
+                  <p class="descripcion">Zapatillas Nike Tenis Pro</p>     
+                  <button class="boton-compra">Comprar</button>    
+                </div>
+            </div>`
+        })
+        if(creadorTarjetas.length == 0){
+            baseDeDatosDeProductos.map((producto) => {
+                tarjetaProducto.innerHTML += `
+                <div class="contenedor-productos" id="cardProduct">
+                      <img src="${producto.img}" class="d-block  mt-5 pb-5 productos" alt="${producto.marca}">    
+                    <div class="debajo-producto">
+                      <p class="precio">$${producto.precio}</p>    
+                      <p class="descripcion">Zapatillas Nike Tenis Pro</p>     
+                      <button class="boton-compra">Comprar</button>    
+                    </div>
+                </div>`
+            })
+        }
+    })
 })
-
-
-
