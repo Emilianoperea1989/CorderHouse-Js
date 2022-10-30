@@ -1,0 +1,125 @@
+ [
+
+
+    {
+        "marca": "Nike",
+        "color": "Negro",
+        "talle": [36, 37, 38, 39, 40, 41],
+        "precio": 25.399,
+        "img": "./img/zapatillas/nike/zapatillas-nike-running-negras.jpg",
+        "stock": true
+
+    },
+
+    {
+        "marca": "Nike",
+        "color": "Negro",
+        "talle": [36, 37, 38, 39, 40],
+        "precio": 22.999,
+        "img": "./img/zapatillas/nike/zapatillas-nike-urbana-negra.jpg",
+        "stock": false
+    },
+    {
+        "marca": "Nike",
+        "color": "Blanco",
+        "talle": [36, 37, 39, 41],
+        "precio": 31.999,
+        "img": "./img/zapatillas/nike/zapatillas-nike-urbana-blanca.jpg",
+        "stock": true
+    },
+
+    {
+        "marca": "Nike",
+        "color": "Blanco",
+        "talle": [36, 37, 38, 40, 41],
+        "precio": 23.399,
+        "img": "./img/zapatillas/nike/zapatillas-nike-urbana-blanca-bota.jpg",
+        "stock": true
+    },
+
+    {
+
+        "marca": "Nike",
+        "color": "Blanco",
+        "talle": [36, 37, 38, 40, 41],
+        "precio": 19.299,
+        "img": "./img/zapatillas/nike/zapatillas-nike-running-blanca.jpg",
+        "stock":true
+    },
+
+    {
+
+        "marca": "Adidas",
+        "color": "Blanco",
+        "talle": [36, 37, 39, 40, 41],
+        "precio": 33.899,
+        "img": "./img/zapatillas/adidas/zapatillas-adidas-running-blancas.jpg",
+        "stock": false
+    },
+
+    {
+    
+        "marca": "Adidas",
+        "color": "Negro",
+        "talle": [36, 37, 38, 40, 41],
+        "precio": 23.299,
+        "img": "./img/zapatillas/adidas/zapatillas-adidas-running-negra.jpg",
+        "stock":true
+    },
+
+    {
+      
+        "marca": "Adidas",
+        "color": "Negro",
+        "talle": [37, 38, 39, 40, 41],
+        "precio": 19.299,
+        "img":"./img/zapatillas/adidas/zapatillas-adidas-urbana-negra.jpg",
+        "stock":true
+    },
+    {
+        "marca":"Adidas",
+        "color":"Blanco",
+        "talle":[37, 38, 40, 41],
+        "precio":39.299,
+        "img":"./img/zapatillas/adidas/zapatillas-adidas-urbana-blanca.jpg",
+        "stock":true
+    },
+
+    {
+        "marca":"Reebok",
+        "color":"Blanco",
+        "talle":[37, 38, 40],
+        "precio":19.399,
+        "img":"./img/zapatillas/reebok/reebok-blanca-urbana.jpg",
+        "stock":true
+    },
+
+    {
+        "marca":"Reebok",
+        "color":"Negro",
+        "talle":[37, 38, 40, 41],
+        "precio":21.699,
+        "img":"./img/zapatillas/reebok/reebok-negra-2.jpg",
+        "stock":true
+    },
+     
+    {
+        "marca":"Reebok",
+        "color":"Negro",
+        "talle":[37, 38, 41],
+        "precio":24.999,
+        "img":"./img/zapatillas/reebok/reebok-negra.jpg",
+        "stock":true
+    },
+
+    {
+        "marca":"Reebok",
+        "color":"Blanco",
+        "talle":[37, 38, 40, 41],
+        "precio":13.399,
+        "img":"./img/zapatillas/reebok/reebok-blanca.jpg",
+        "stock":true
+    }
+
+
+]

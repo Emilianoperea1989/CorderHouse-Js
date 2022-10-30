@@ -3,49 +3,11 @@
 
 class Cliente {
     constructor(username, email, pass) {
-            this.username = username,
+        this.username = username,
             this.email = email,
             this.pass = pass
     }
 };
-
-class Producto {
-    constructor(marca, estilo, tipo, color, talle, precio, stock, img) {
-            this.marca = marca,
-            this.estilo = estilo,
-            this.tipo = tipo,
-            this.color = color,
-            this.talle = talle,
-            this.precio = parseFloat(precio).toFixed(3),
-            this.stock = stock,
-            this.img = img
-
-    }
-
-}
-
-// Base de dato de productos
-
-const baseDeDatosDeProductos = [
-    new Producto('Nike', 'running', 'Zapatilla', 'Negro', [36, 37, 38, 39, 40, 41], 29.499, true,'./img/zapatillas/nike/zapatillas-nike-running-negras.jpg'),
-
-    new Producto('Nike', 'running', 'Zapatilla', 'Negro', [36, 37, 38, 39, 40], 22.999, true, './img/zapatillas/nike/zapatillas-nike-urbana-negra.jpg'),
-
-    new Producto('Nike', 'urbano', 'Zapatilla', 'blanco', [36, 37, 39, 41], 31.999, true, './img/zapatillas/nike/zapatillas-nike-urbana-blanca.jpg'),
-
-    new Producto('Nike', 'running', 'Zapatilla', 'blanco', [36, 37, 38, 40, 41], 23.699, true,'./img/zapatillas/nike/zapatillas-nike-urbana-blanca-bota.jpg'),
-
-    new Producto('Nike', 'running', 'Zapatilla', 'blanco', [36, 37, 38, 40, 41], 19.299, true,'./img/zapatillas/nike/zapatillas-nike-running-blanca.jpg'),
-
-    new Producto('Adidas', 'running', 'Zapatilla', 'blanco', [36, 37, 39, 40, 41], 33.899, true,'./img/zapatillas/adidas/zapatillas-adidas-running-blancas.jpg'),
-
-    new Producto('Adidas', 'running', 'Zapatilla', 'blanco', [36, 37, 39, 40, 41], 24.699, true,'./img/zapatillas/adidas/zapatillas-adidas-running-negra.jpg'),
-
-    new Producto('Adidas', 'running', 'Zapatilla', 'Negro', [37, 38, 39, 40, 41], 18.999, true,'./img/zapatillas/adidas/zapatillas-adidas-urbana-negra.jpg'),
-
-    new Producto('Adidas', 'running', 'Zapatilla', 'blanco', [37, 38, 40, 41], 39.299, true,'./img/zapatillas/adidas/zapatillas-adidas-urbana-blanca.jpg'),
-    
-]
 
 // Variables y Objetos del DOM
 
@@ -67,19 +29,23 @@ let clientesRegistrados = [],
     botonLogout = document.getElementById('btnLogout '),
     tarjetaProducto = document.getElementById('cardProduct'),
     check = document.getElementById('check'),
-    marcaFiltro = document.querySelectorAll('input[type=checkbox][name=marca]');
+    marcaFiltro = document.querySelectorAll('input[type=checkbox][name=marca]'),
+    colorFiltro = document.querySelectorAll('input[type=checkbox][name=color]'),
+    filtroAll = document.querySelectorAll(('input[type=checkbox][name=marca],[name=color]'));
+
+
 
 // funcion para registrar nuevo cliente
 
 function registroNuevoCliente(username, email, pass) {
     let nuevoCliente = new Cliente(username, email, pass);
     let regexEmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
- 
-    if((username.length > 4) && (regexEmail.test(email)) && (pass.length > 8)){
+
+    if ((username.length > 4) && (regexEmail.test(email)) && (pass.length > 8)) {
         clientesRegistrados.push(nuevoCliente);
-        localStorage.setItem('usuarios', JSON.stringify(clientesRegistrados)); 
-    }else{
-        alert('datos incorrectos \nEl nombre requiere minimo 6 caracteres \nEmail = ejemplo@gmail.com \nLa contraseña requiere minimo 8 caracteres'  );
+        localStorage.setItem('usuarios', JSON.stringify(clientesRegistrados));
+    } else {
+        alert('datos incorrectos \nEl nombre requiere minimo 4 caracteres \nEmail = ejemplo@gmail.com \nLa contraseña requiere minimo 8 caracteres');
     }
 
 };
@@ -100,20 +66,20 @@ function inicioSesion(cliente, password) {
     } else {
         saludo.innerText = `Bienvenido ${usuarioRegistrado.username}`;
         mostrarContenido(toggles, 'd-none');
-           
-    if(check.checked){
-        clientesRegistrados.push(usuarioRegistrado);
-        localStorage.setItem('usuarios', JSON.stringify(clientesRegistrados)); 
-    
-    }else{
-        clienteLogeado.push(usuarioRegistrado);
-        sessionStorage.setItem('usuario', JSON.stringify(clienteLogeado)); 
-     
+
+        if (check.checked) {
+            clientesRegistrados.push(usuarioRegistrado);
+            localStorage.setItem('usuarios', JSON.stringify(clientesRegistrados));
+
+        } else {
+            clienteLogeado.push(usuarioRegistrado);
+            sessionStorage.setItem('usuario', JSON.stringify(clienteLogeado));
+
+        }
+        return usuarioRegistrado;
     }
-       return usuarioRegistrado;
-}
-    
- 
+
+
 }
 // funcion para mostrar contendio si estas registrado o no
 
@@ -134,19 +100,36 @@ botonRegistrar.addEventListener('click', (e) => {
     modal.hide();
 })
 
-window.onload = () => {
-    obtenerDatos(localStorage);
-    baseDeDatosDeProductos.map((producto) => {
+function createHTML(array){
+    array.map((producto) => { 
         tarjetaProducto.innerHTML += `
         <div class="contenedor-productos" id="cardProduct">
               <img src="${producto.img}" class="d-block  mt-5 pb-5 productos" alt="${producto.marca}">    
             <div class="debajo-producto">
-              <p class="precio">$${producto.precio}</p>    
+              <p class="precio">$${producto.precio}</p>  
               <p class="descripcion">Zapatillas Nike Tenis Pro</p>     
               <button class="boton-compra">Comprar</button>    
             </div>
         </div>`
     })
+}
+
+
+
+async function generarTarjetas () {
+    const respuesta = await fetch ('./javaScript/data.json');
+    const datos = await respuesta.json(); 
+    createHTML(datos);
+}
+
+
+window.onload = () => {
+
+    obtenerDatos(localStorage);
+    generarTarjetas();
+    
+      
+
 };
 
 // Acción para boton login
@@ -169,31 +152,51 @@ btnLogout.addEventListener('click', () => {
 });
 
 
-function filtros(filtro) {
-    return baseDeDatosDeProductos.filter((baseDeDatosDeProductos) => baseDeDatosDeProductos.marca == `${filtro[0]}` || baseDeDatosDeProductos.marca == `${filtro[1]}`);
 
-}
+   async function filtros(filtroMarca, filtroColor) {
+    const respuesta = await fetch ('./javaScript/data.json');
+     const datos = await respuesta.json();
+     const marcas = datos.filter((datos) => (datos.marca == `${filtroMarca[0]}` || datos.marca == `${filtroMarca[1]}` || datos.marca == `${filtroMarca[2]}`));
+    if(filtroMarca.length > 0 && filtroColor.length === 0){
+        return datos.filter((datos) => (datos.marca == `${filtroMarca[0]}` || datos.marca == `${filtroMarca[1]}` || datos.marca == `${filtroMarca[2]}`));
+    }else if(filtroMarca.length > 0 && filtroColor.length > 0){
+        return marcas.filter((marcas) =>(marcas.color == `${filtroColor[0]}` || marcas.color == `${filtroColor[1]}`));
+    }else{
+        return datos.filter((datos) =>(datos.color == `${filtroColor[0]}` || datos.color == `${filtroColor[1]}`));
+    }
+    }
 
-let filtroMarcas = [];
+    async function baseDatos() {
+        const respuesta = await fetch ('./javaScript/data.json');
+        const datos = await respuesta.json();
+        return datos;
+    }
+    
 
-marcaFiltro.forEach(function(checkbox){
-    checkbox.addEventListener('change', function(){
+let filtroTodo = [];
+
+
+ filtroAll.forEach(function (checkbox) {
+    checkbox.addEventListener('change', async () => {
         tarjetaProducto.innerHTML = '';
-        filtroMarcas = Array.from(marcaFiltro).filter(i => i.checked).map(i => i.value)
-        
-        const creadorTarjetas = filtros(filtroMarcas);
+        filtroTodo = Array.from(filtroAll).filter(i => i.checked).map(i => i.value)
+        // console.log(filtroTodo);
+        filtroMarca = filtroTodo.filter( (dato )=> dato == 'Adidas'|| dato =='Nike'|| dato =='Reebok');
+        filtroColor = filtroTodo.filter( (dato )=> dato == 'Blanco'|| dato =='Negro');
+        const creadorTarjetas = await filtros(filtroMarca,filtroColor);
         creadorTarjetas.map((producto) => {
             tarjetaProducto.innerHTML += `
             <div class="contenedor-productos" id="cardProduct">
                   <img src="${producto.img}" class="d-block  mt-5 pb-5 productos" alt="${producto.marca}">    
                 <div class="debajo-producto">
-                  <p class="precio">$${producto.precio}</p>    
+                  <p class="precio">$${producto.precio}</p> 
                   <p class="descripcion">Zapatillas Nike Tenis Pro</p>     
                   <button class="boton-compra">Comprar</button>    
                 </div>
             </div>`
         })
-        if(creadorTarjetas.length == 0){
+        if (creadorTarjetas.length == 0) {
+            const baseDeDatosDeProductos = await baseDatos();
             baseDeDatosDeProductos.map((producto) => {
                 tarjetaProducto.innerHTML += `
                 <div class="contenedor-productos" id="cardProduct">
@@ -208,3 +211,5 @@ marcaFiltro.forEach(function(checkbox){
         }
     })
 })
+
+
