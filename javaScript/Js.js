@@ -31,13 +31,17 @@ let clientesRegistrados = [],
     check = document.getElementById('check'),
     marcaFiltro = document.querySelectorAll('input[type=checkbox][name=marca]'),
     colorFiltro = document.querySelectorAll('input[type=checkbox][name=color]'),
-    filtroAll = document.querySelectorAll(('input[type=checkbox][name=marca],[name=color]'));
-
+    filtroAll = document.querySelectorAll(('input[type=checkbox][name=marca],[name=color]')),
+    modalCarrito = new bootstrap.Modal(carrito),
+    productoAgregado = document.getElementById('productoAgregado'),
+    total = document.getElementById('total'),
+    btnCompraExitosa = document.getElementById('btnCompraExitosa');
 
 
 // funcion para registrar nuevo cliente
 
 function registroNuevoCliente(username, email, pass) {
+
     let nuevoCliente = new Cliente(username, email, pass);
     let regexEmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
@@ -45,7 +49,7 @@ function registroNuevoCliente(username, email, pass) {
         clientesRegistrados.push(nuevoCliente);
         localStorage.setItem('usuarios', JSON.stringify(clientesRegistrados));
     } else {
-        alert('datos incorrectos \nEl nombre requiere minimo 4 caracteres \nEmail = ejemplo@gmail.com \nLa contraseña requiere minimo 8 caracteres');
+        swal('Datos incorrectos', '\nEl nombre requiere minimo 4 caracteres \nEmail = ejemplo@gmail.com \nLa contraseña requiere minimo 8 caracteres', 'error', { className: "sweetalert" });
     }
 
 };
@@ -62,9 +66,9 @@ function inicioSesion(cliente, password) {
 
     let usuarioRegistrado = clientesRegistrados.find((clienteRegistrado) => clienteRegistrado.email == cliente && clienteRegistrado.pass == password);
     if (!usuarioRegistrado) {
-        alert('Usted a ingresado un Usuario y/o Contraseña no valida');
+        swal('Usted a ingresado un Usuario y/o Contraseña no valida', 'Intente nuevamente', 'error', { className: "sweetalert" });
     } else {
-        saludo.innerText = `Bienvenido ${usuarioRegistrado.username}`;
+        saludo.innerText = `¡Bienvenido ${usuarioRegistrado.username}!`;
         mostrarContenido(toggles, 'd-none');
 
         if (check.checked) {
@@ -100,38 +104,6 @@ botonRegistrar.addEventListener('click', (e) => {
     modal.hide();
 })
 
-function createHTML(array){
-    array.map((producto) => { 
-        tarjetaProducto.innerHTML += `
-        <div class="contenedor-productos" id="cardProduct">
-              <img src="${producto.img}" class="d-block  mt-5 pb-5 productos" alt="${producto.marca}">    
-            <div class="debajo-producto">
-              <p class="precio">$${producto.precio}</p>  
-              <p class="descripcion">Zapatillas Nike Tenis Pro</p>     
-              <button class="boton-compra">Comprar</button>    
-            </div>
-        </div>`
-    })
-}
-
-
-
-async function generarTarjetas () {
-    const respuesta = await fetch ('./javaScript/data.json');
-    const datos = await respuesta.json(); 
-    createHTML(datos);
-}
-
-
-window.onload = () => {
-
-    obtenerDatos(localStorage);
-    generarTarjetas();
-    
-      
-
-};
-
 // Acción para boton login
 
 botonLogin.addEventListener('click', (e) => {
@@ -152,64 +124,163 @@ btnLogout.addEventListener('click', () => {
 });
 
 
+// Esta funcion muestra un nuevo carrito sin nungun producto despues de haber efectuado la compra
 
-   async function filtros(filtroMarca, filtroColor) {
-    const respuesta = await fetch ('./javaScript/data.json');
-     const datos = await respuesta.json();
-     const marcas = datos.filter((datos) => (datos.marca == `${filtroMarca[0]}` || datos.marca == `${filtroMarca[1]}` || datos.marca == `${filtroMarca[2]}`));
-    if(filtroMarca.length > 0 && filtroColor.length === 0){
-        return datos.filter((datos) => (datos.marca == `${filtroMarca[0]}` || datos.marca == `${filtroMarca[1]}` || datos.marca == `${filtroMarca[2]}`));
-    }else if(filtroMarca.length > 0 && filtroColor.length > 0){
-        return marcas.filter((marcas) =>(marcas.color == `${filtroColor[0]}` || marcas.color == `${filtroColor[1]}`));
-    }else{
-        return datos.filter((datos) =>(datos.color == `${filtroColor[0]}` || datos.color == `${filtroColor[1]}`));
-    }
-    }
+btnCompraExitosa.addEventListener('click' , () =>{
+ compraExitosa();
+   modalCarrito.hide();
+   productoAgregado.innerHTML = '';
+} )
 
-    async function baseDatos() {
-        const respuesta = await fetch ('./javaScript/data.json');
-        const datos = await respuesta.json();
-        return datos;
-    }
+
+// Esta funcion muestra el mensaje de compra finalizada
+
+function compraExitosa(){
+    swal('Gracias por tu compra',' Estamos preparando tu pedido','success');
+
+}
+
+
+
+
+// Esta funcion crea las tarjetas de los productos
+
+function createHTML(array) {
+    array.map((producto) => {
+        tarjetaProducto.innerHTML += `
+        <div class="contenedor-productos" id="cardProduct">
+            <img src="${producto.img}" class="d-block  mt-5 pb-5 productos" alt="${producto.marca}">    
+              <div class="debajo-producto">
+             <p class="precio">$${producto.precio}</p>  
+             <button type="button" class="btn btn-info  botonComprar" data-bs-toggle="modal" data-bs-target="#carrito"
+             value=${producto.precio}
+              name= ${producto.img} 
+             >
+             Agregar  <span class="material-symbols-outlined">
+             add_shopping_cart
+             </span>
+           </button>
+           </div>
+         </div>`
     
+// Aca se crea un elemento del dom que que es el boton para agregar al carrito y se genera para cada producto agregado al carrito la imagen , la marca y el precio   
+
+
+        btnComprar = document.querySelectorAll('.botonComprar');        
+        btnComprar.forEach(btn => btn.addEventListener('click', () => {
+            productoAgregado.innerHTML +=`
+            <div class="modal-body" id="productoAgregado" >
+            <img src="${btn.name}" class="d-block  mt-5 pb-5 productos" alt="${producto.marca}">    
+            <p class="precio">$${btn.value}</p> 
+            <p id="total">Total: ${total}</p>
+            </div> ` 
+           
+                
+        }))
+    })
+}
+async function totalDeCompra(){
+    const respuesta = await fetch('./javaScript/data.json');
+    const datos = await respuesta.json();
+    
+    console.log(total)
+   return total
+}      
+
+
+
+
+
+
+
+
+// En esta funcion se hace una peticion fetch a la base de datos generdada de forma local .JSON y se espera tener la informacion, luego se llama a la funcion createHTML y se le ingresa el array que devuelve el fetch
+
+async function generarTarjetas() {
+    const respuesta = await fetch('./javaScript/data.json');
+    const datos = await respuesta.json();
+    createHTML(datos);
+}
+
+// En el inicio de la pagina se verifica si verifica si el usuario es cliente para poder iniciar sesion y tambien se generan las tarjetas
+
+window.onload = () => {
+
+    obtenerDatos(localStorage);
+    generarTarjetas();
+
+
+
+};
+
+// En esta funcion se hace una peticion de los productos y hace un filtrado segun la marca y el color
+
+async function filtros(filtroMarca, filtroColor) {
+    const respuesta = await fetch('./javaScript/data.json');
+    const datos = await respuesta.json();
+    const marcas = datos.filter((datos) => (datos.marca == `${filtroMarca[0]}` || datos.marca == `${filtroMarca[1]}` || datos.marca == `${filtroMarca[2]}`));
+    if (filtroMarca.length > 0 && filtroColor.length === 0) {
+        return datos.filter((datos) => (datos.marca == `${filtroMarca[0]}` || datos.marca == `${filtroMarca[1]}` || datos.marca == `${filtroMarca[2]}`));
+    } else if (filtroMarca.length > 0 && filtroColor.length > 0) {
+        return marcas.filter((marcas) => (marcas.color == `${filtroColor[0]}` || marcas.color == `${filtroColor[1]}`));
+    } else {
+        return datos.filter((datos) => (datos.color == `${filtroColor[0]}` || datos.color == `${filtroColor[1]}`));
+    }
+}
+
+// esta funcion devuelve un array de la base de datos
+
+async function baseDatos() {
+    const respuesta = await fetch('./javaScript/data.json');
+    const datos = await respuesta.json();
+    return datos;
+}
+
+
+ // en esta funcion se verifica en el filtro que opcion esta seleccionada para que luego se ejecute el filtrado 
 
 let filtroTodo = [];
 
-
- filtroAll.forEach(function (checkbox) {
+filtroAll.forEach(function (checkbox) {
     checkbox.addEventListener('change', async () => {
         tarjetaProducto.innerHTML = '';
         filtroTodo = Array.from(filtroAll).filter(i => i.checked).map(i => i.value)
-        // console.log(filtroTodo);
-        filtroMarca = filtroTodo.filter( (dato )=> dato == 'Adidas'|| dato =='Nike'|| dato =='Reebok');
-        filtroColor = filtroTodo.filter( (dato )=> dato == 'Blanco'|| dato =='Negro');
-        const creadorTarjetas = await filtros(filtroMarca,filtroColor);
+       
+        filtroMarca = filtroTodo.filter((dato) => dato == 'Adidas' || dato == 'Nike' || dato == 'Reebok');
+        filtroColor = filtroTodo.filter((dato) => dato == 'Blanco' || dato == 'Negro');
+        const creadorTarjetas = await filtros(filtroMarca, filtroColor);
         creadorTarjetas.map((producto) => {
             tarjetaProducto.innerHTML += `
             <div class="contenedor-productos" id="cardProduct">
-                  <img src="${producto.img}" class="d-block  mt-5 pb-5 productos" alt="${producto.marca}">    
-                <div class="debajo-producto">
-                  <p class="precio">$${producto.precio}</p> 
-                  <p class="descripcion">Zapatillas Nike Tenis Pro</p>     
-                  <button class="boton-compra">Comprar</button>    
-                </div>
-            </div>`
+                <img src="${producto.img}" class="d-block  mt-5 pb-5 productos" alt="${producto.marca}">    
+                  <div class="debajo-producto">
+                 <p class="precio">$${producto.precio}</p>  
+                 <button type="button" class="btn btn-info botonComprar" data-bs-toggle="modal" data-bs-target="#carrito"
+                 value=${producto.precio}
+                  name= ${producto.img} 
+                 >
+                 Añadir <span class="material-symbols-outlined">
+                 add_shopping_cart
+                 </span>
+               </button>
+               </div>
+             </div>`
+            btnComprar = document.querySelectorAll('.botonComprar');
+            btnComprar.forEach(btn => btn.addEventListener('click', () => {
+            productoAgregado.innerHTML += `
+            <div class="modal-body" id="productoAgregado" >
+            <img src="${btn.name}" class="d-block  mt-5 pb-5 productos" alt="${producto.marca}">    
+            <p class="precio">$${btn.value}</p>  
+            
+            </div>      
+            ` 
+            }))
+
         })
         if (creadorTarjetas.length == 0) {
-            const baseDeDatosDeProductos = await baseDatos();
-            baseDeDatosDeProductos.map((producto) => {
-                tarjetaProducto.innerHTML += `
-                <div class="contenedor-productos" id="cardProduct">
-                      <img src="${producto.img}" class="d-block  mt-5 pb-5 productos" alt="${producto.marca}">    
-                    <div class="debajo-producto">
-                      <p class="precio">$${producto.precio}</p>    
-                      <p class="descripcion">Zapatillas Nike Tenis Pro</p>     
-                      <button class="boton-compra">Comprar</button>    
-                    </div>
-                </div>`
-            })
+            generarTarjetas();
+          
         }
+    
     })
 })
-
-
