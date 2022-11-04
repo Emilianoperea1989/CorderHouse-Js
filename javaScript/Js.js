@@ -80,6 +80,9 @@ function inicioSesion(cliente, password) {
         if (check.checked) {
             clientesRegistrados.push(usuarioRegistrado);
             localStorage.setItem('usuarios', JSON.stringify(clientesRegistrados));
+            clienteLogeado.push(usuarioRegistrado);
+            sessionStorage.setItem('usuario', JSON.stringify(clienteLogeado));
+
 
         } else {
             clienteLogeado.push(usuarioRegistrado);
