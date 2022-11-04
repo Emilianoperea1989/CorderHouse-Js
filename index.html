@@ -24,10 +24,23 @@
     <div class="header ">
       <header>
         <nav class="navbar navbar-light ">
-          <div class="container-fluid ">
-            <h1 class="Logo">Free-Market</h1>
-            <p id="nombreUsuario" class="d-none toggles"></p>
-            <div>
+          <div class="container-fluid row">
+            <div class="col-3">
+              <h1 class="Logo">Free-Market</h1>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+              <p id="nombreUsuario" class="d-none toggles"></p>
+            </div>
+            <div class="col-1 d-flex justify-content-end">
+                          <button class="btn btn-success d-flex  align-self-center"
+                          data-bs-toggle="modal" data-bs-target="#carrito"
+                          >Carrito<span class="material-symbols-outlined">
+                          shopping_cart
+                          </span><span id="cantidadCarrito"></span>
+                        </button>
+            </div>
+
+            <div class="col-2 d-flex justify-content-end">
               <input class="btn btn-outline-success button-regist toggles" type="button" value="Iniciar sesion"
                 data-bs-toggle="modal" data-bs-target="#modalLogin">
               <input class="btn btn-outline-success button-regist toggles" type="button" value="Regístrate"
@@ -146,8 +159,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body d-block align-self-center " id="productoAgregado" >
-        <p id="total"></p>
       </div>
+      <div id="total"></div>
       <div class="modal-footer">
       
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Agregar otro producto</button>

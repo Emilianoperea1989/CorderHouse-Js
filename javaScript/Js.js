@@ -1,4 +1,3 @@
-
 //  Creador clase Cliente y Producto
 
 class Cliente {
@@ -37,6 +36,13 @@ let clientesRegistrados = [],
     total = document.getElementById('total'),
     btnCompraExitosa = document.getElementById('btnCompraExitosa');
 
+// Funcion para dar formato al precio a moneda argentina
+
+    const formatterPeso = new Intl.NumberFormat('es-AR', {
+        style: 'currency',
+        currency: 'ARS',
+        minimumFractionDigits: 0
+    })
 
 // funcion para registrar nuevo cliente
 
@@ -126,22 +132,34 @@ btnLogout.addEventListener('click', () => {
 
 // Esta funcion muestra un nuevo carrito sin nungun producto despues de haber efectuado la compra
 
-btnCompraExitosa.addEventListener('click' , () =>{
- compraExitosa();
-   modalCarrito.hide();
-   productoAgregado.innerHTML = '';
-} )
+btnCompraExitosa.addEventListener('click', () => {
+    if (clienteLogeado.length !== 0) {
+        compraExitosa();
+        modalCarrito.hide();
+        productoAgregado.innerHTML = '';
+        cantidadCarrito.innerHTML = '';
+        total.innerHTML = '';
+        contarcarrito = 0;
+        subTotal = 0;
+    }else{
+        swal('Necesitas inicar sesion para realizar la compra','','error');
+    }
+})
 
 
 // Esta funcion muestra el mensaje de compra finalizada
 
 function compraExitosa(){
     swal('Gracias por tu compra',' Estamos preparando tu pedido','success');
-
 }
 
+function agregadoAlCarrito(){
+    swal('Producto agregado al carrito','','success');
+}
 
-
+let contarcarrito = 0;
+let subTotal = 0;
+const cantidadCarrito = document.getElementById('cantidadCarrito');
 
 // Esta funcion crea las tarjetas de los productos
 
@@ -151,8 +169,8 @@ function createHTML(array) {
         <div class="contenedor-productos" id="cardProduct">
             <img src="${producto.img}" class="d-block  mt-5 pb-5 productos" alt="${producto.marca}">    
               <div class="debajo-producto">
-             <p class="precio">$${producto.precio}</p>  
-             <button type="button" class="btn btn-info  botonComprar" data-bs-toggle="modal" data-bs-target="#carrito"
+             <p class="precio">${formatterPeso.format(producto.precio)}</p>  
+             <button type="button" class="btn btn-info  botonComprar"
              value=${producto.precio}
               name= ${producto.img} 
              >
@@ -166,32 +184,21 @@ function createHTML(array) {
 // Aca se crea un elemento del dom que que es el boton para agregar al carrito y se genera para cada producto agregado al carrito la imagen , la marca y el precio   
 
 
-        btnComprar = document.querySelectorAll('.botonComprar');        
+        btnComprar = document.querySelectorAll('.botonComprar');    
         btnComprar.forEach(btn => btn.addEventListener('click', () => {
+            contarcarrito++;
+            subTotal += parseInt(btn.value);
             productoAgregado.innerHTML +=`
             <div class="modal-body" id="productoAgregado" >
-            <img src="${btn.name}" class="d-block  mt-5 pb-5 productos" alt="${producto.marca}">    
-            <p class="precio">$${btn.value}</p> 
-            <p id="total">Total: ${total}</p>
+            <img src="${btn.name}" class="d-block  mt-2 pb-2 productos" alt="${producto.marca}">    
+            <p class="precio">${formatterPeso.format(btn.value)}</p> 
             </div> ` 
-           
-                
+            cantidadCarrito.innerHTML = `<span> (${contarcarrito})</span>`;
+            total.innerHTML = `<p class="precio ms-5">Total: ${formatterPeso.format(subTotal)}</p> `;
+            agregadoAlCarrito();
         }))
     })
 }
-async function totalDeCompra(){
-    const respuesta = await fetch('./javaScript/data.json');
-    const datos = await respuesta.json();
-    
-    console.log(total)
-   return total
-}      
-
-
-
-
-
-
 
 
 // En esta funcion se hace una peticion fetch a la base de datos generdada de forma local .JSON y se espera tener la informacion, luego se llama a la funcion createHTML y se le ingresa el array que devuelve el fetch
@@ -254,8 +261,8 @@ filtroAll.forEach(function (checkbox) {
             <div class="contenedor-productos" id="cardProduct">
                 <img src="${producto.img}" class="d-block  mt-5 pb-5 productos" alt="${producto.marca}">    
                   <div class="debajo-producto">
-                 <p class="precio">$${producto.precio}</p>  
-                 <button type="button" class="btn btn-info botonComprar" data-bs-toggle="modal" data-bs-target="#carrito"
+                 <p class="precio">${formatterPeso.format(producto.precio)}</p>  
+                 <button type="button" class="btn btn-info botonComprar" 
                  value=${producto.precio}
                   name= ${producto.img} 
                  >
@@ -267,13 +274,16 @@ filtroAll.forEach(function (checkbox) {
              </div>`
             btnComprar = document.querySelectorAll('.botonComprar');
             btnComprar.forEach(btn => btn.addEventListener('click', () => {
-            productoAgregado.innerHTML += `
-            <div class="modal-body" id="productoAgregado" >
-            <img src="${btn.name}" class="d-block  mt-5 pb-5 productos" alt="${producto.marca}">    
-            <p class="precio">$${btn.value}</p>  
-            
-            </div>      
-            ` 
+                contarcarrito++
+                subTotal += parseInt(btn.value);
+                productoAgregado.innerHTML +=`
+                <div class="modal-body" id="productoAgregado" >
+                <img src="${btn.name}" class="d-block  mt-2 pb-2 productos" alt="${producto.marca}">    
+                <p class="precio">${formatterPeso.format(btn.value)}</p> 
+                </div> ` 
+                cantidadCarrito.innerHTML = `<span> (${contarcarrito})</span>`;
+                total.innerHTML = `<p class="precio ms-5">Total: ${formatterPeso.format(subTotal)}</p> `;
+                agregadoAlCarrito();
             }))
 
         })
